@@ -5,7 +5,7 @@ from calculate_masses_density_based import calculate_masses_density_based
 from calculate_masses_inactive import calculate_masses_inactive, calculate_total_mass
 from calculate_masses_top_down import calculate_masses_top_down
 from util import theoretical_capacity
-
+from plot_material_content import plot_materials
 
 '''
 Settings
@@ -15,7 +15,7 @@ PHEV2, pouch_fantasy1, pouch_fantasy2, BEV2, EIG_ePLB_C020, Schmalstieg_pris, Ko
 '''
 
 # cell=PHEV2
-cell=EIG_ePLB_C020
+# cell=EIG_ePLB_C020
 # cell=Schmalstieg_pris
 # cell=Kokam_7_5AH
 cell=eGolf_UF261591
@@ -39,4 +39,6 @@ total_mass = (total_mass_density["total_mass"] + total_mass_ah_g["total_mass"])/
 mass_topdown = calculate_masses_top_down(cell, total_mass=total_mass)
 
 c_theo = theoretical_capacity(cell, gc)
+
+plot_materials(gc, inactive_masses, mass_ahg, masses_density, total_mass_ah_g, total_mass_density, total_mass, 264)
 print(0)
