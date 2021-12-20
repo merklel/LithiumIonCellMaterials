@@ -40,5 +40,5 @@ mass_topdown = calculate_masses_top_down(cell, total_mass=total_mass)
 
 c_theo = theoretical_capacity(cell, gc)
 
-plot_materials(gc, inactive_masses, mass_ahg, masses_density, total_mass_ah_g, total_mass_density, total_mass, 264)
+plot_materials(gc, inactive_masses, mass_ahg, masses_density,   total_mass_ah_g, total_mass_density, total_mass, 264)
 print(0)

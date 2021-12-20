@@ -102,7 +102,6 @@ def plot_materials(gc, inactive_masses, mass_ahg, masses_density, total_mass_ah_
     axs[0].set_xticklabels(axs[0].get_xticklabels(), rotation = -25, ha="left")
     axs[1].set_xticklabels(axs[1].get_xticklabels(), rotation = -25, ha="left")
 
-
     f.savefig("plots/results/masses_cell.png", bbox_inches="tight")
     f.savefig("plots/results/masses_cell.pgf", bbox_inches="tight")
 
@@ -124,5 +123,45 @@ def plot_materials(gc, inactive_masses, mass_ahg, masses_density, total_mass_ah_
 
     f.savefig("plots/results/masses_density_pack.png", bbox_inches="tight")
     f.savefig("plots/results/masses_density_pack.pgf", bbox_inches="tight")
+
+
+
+
+    ################### 2 Methods Plot in one axis #########################
+    col_names = mp_density.columns.values
+
+    mp_density = mp_density.transpose()
+    mp_density.rename(columns={0: 'Gewicht'}, inplace=True)
+
+    mp_density["Methode"] = ["Dichtebasiert"]*len(mp_density)
+    mp_density["Material"] = mp_density.index
+
+    mp_ah = mp_ah.transpose()
+    mp_ah.rename(columns={0: 'Gewicht'}, inplace=True)
+
+    mp_ah["Methode"] = ["Ah-basiert"] * len(mp_ah)
+    mp_ah["Material"] = mp_ah.index
+
+    df_combined = mp_density.append(mp_ah)
+
+
+    # combined_data = combined_data.set_index([["Density", "Ah-Methode"]])
+
+    f, axs = plt.subplots(1, 1, figsize=(6.3, 4), sharey=True)
+    sns.barplot(data=df_combined, x="Material", y="Gewicht", hue="Methode", ax=axs, palette=tum_colors)
+
+    # sns.barplot(data=mp_density, ax=axs, palette=tum_colors)
+    # sns.barplot(data=mp_ah, ax=axs, palette=tum_colors)
+
+    axs.set_title("Vergleich der Methoden", fontsize=fontsize)
+    # axs[1].set_title("Kapazitäts-basierte Methode", fontsize=fontsize)
+
+    axs.set_ylabel("Gewicht in g")
+
+    axs.set_xticklabels(axs.get_xticklabels(), rotation=-25, ha="left")
+
+    f.savefig("plots/results/masses_cell_one_axis.png", bbox_inches="tight")
+    f.savefig("plots/results/masses_cell_one_axis.pgf", bbox_inches="tight")
+
 
     plt.show()
